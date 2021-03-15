@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const expect = require('chai');
-const socket = require('socket.io');
 
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner.js');
@@ -48,5 +47,13 @@ const server = app.listen(portNum, () => {
     }, 1500);
   }
 });
+
+//TODO: connect multiple player to server
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
 
 module.exports = app; // For testing
